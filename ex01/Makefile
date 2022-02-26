@@ -1,13 +1,13 @@
 CC=c++
-SRC=
+SRC=main.cpp PhoneBook.class.cpp Contact.class.cpp
 CFLAGS=-Wall -Wextra -Werror -std=c++98
 DFLAGS=-g
-NAME=
+NAME=phonebook
 
 all: $(NAME)
 
 $(NAME): $(SRC)
-	$(CC) $(CFLAGS) $(SRC) -o $(NAME)
+	$(CC) $(CFLAGS) -Wvexing-parse $(SRC) -o $(NAME)
 
 clean:
 	rm -rf $(NAME)
