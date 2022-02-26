@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 08:59:27 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/26 13:51:32 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/26 17:07:45 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ void	PhoneBook::addContact(Contact const contact) {
 	this->_contacts[this->_nextIndex] = contact;
 	this->_nextIndex += 1;
 	return ;
+}
+
+Contact PhoneBook::getContact(int const index) const {
+	if (index > 7)
+		return Contact("", "", "", "", "");
+	else
+		return this->_contacts[index];
 }
 
 PhoneBook::~PhoneBook(void) {

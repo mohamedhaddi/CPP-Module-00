@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 09:10:49 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/26 13:41:54 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/26 16:44:45 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 bool all(std::string str, int (*is_thing)(int))
 {
-	for(int i = 0; i < str.length(); i++)
+	for(unsigned long i = 0; i < str.length(); i++)
 		if (!is_thing(str[i]))
 			return (false);
 	return (true);
@@ -62,7 +62,6 @@ int main() {
 			continue ;
 		}
 
-		// ADD
 		else if (command == "ADD")
 		{
 			std::string firstName;
@@ -71,7 +70,6 @@ int main() {
 			std::string phoneNumber;
 			std::string darkestSecret;
 
-			// First name
 			while (true)
 			{
 				std::cout << "# First name: "; std::getline(std::cin, firstName);
@@ -86,13 +84,10 @@ int main() {
 								<< std::endl << "#" << std::endl;
 					continue ;
 				}
-				else {
-					// do class stuff here
+				else
 					break ;
-				}
 			}
 
-			// Last name
 			while (true)
 			{
 				std::cout << "# Last name: "; std::getline(std::cin, lastName);
@@ -107,13 +102,10 @@ int main() {
 								<< std::endl << "#" << std::endl;
 					continue ;
 				}
-				else {
-					// do class stuff here
+				else
 					break ;
-				}
 			}
 			
-			// Nickname
 			while (true)
 			{
 				std::cout << "# Nickname: "; std::getline(std::cin, nickName);
@@ -128,13 +120,10 @@ int main() {
 								<< std::endl << "#" << std::endl;
 					continue ;
 				}
-				else {
-					// do class stuff here
+				else
 					break ;
-				}
 			}
 
-			// Phone number
 			while (true)
 			{
 				std::cout << "# Phone number: "; std::getline(std::cin, phoneNumber);
@@ -149,13 +138,10 @@ int main() {
 								<< std::endl << "#" << std::endl;
 					continue ;
 				}
-				else {
-					// do class stuff here
+				else
 					break ;
-				}
 			}
 
-			// Darkest secret
 			while (true)
 			{
 				std::cout << "# Darkest secret: "; std::getline(std::cin, darkestSecret);
@@ -165,19 +151,22 @@ int main() {
 
 				std::cout << "#" << std::endl;
 
-				// do class stuff here
 				break ;
 			}
 
-			// create contact
 			Contact const contact(firstName, lastName, nickName, phoneNumber, darkestSecret);
-
-			// add contact to PhoneBook.contacts[8]
 			phoneBook.addContact(contact);
 			
 		}
 		else if (command == "SEARCH")
 		{
+			std::cout << std::setw(10) << "INDEX" << std::endl;
+			std::cout << '|' << std::endl;
+			std::cout << std::setw(10) << "FIRST NAME" << std::endl;
+			std::cout << '|' << std::endl;
+			std::cout << std::setw(10) << "LAST NAME" << std::endl;
+			std::cout << '|' << std::endl;
+			std::cout << std::setw(10) << "NICKNAME" << std::endl;
 		}
 		else if (command == "EXIT")
 		{

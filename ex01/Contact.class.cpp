@@ -6,11 +6,20 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 09:05:42 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/26 12:29:47 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/26 17:07:04 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.class.hpp"
+
+Contact::Contact(void): _firstName(""),
+						_lastName(""),
+						_nickName(""),
+						_phoneNumber(""),
+						_darkestSecret("")
+{
+	return ;
+}
 
 Contact::Contact(
 					std::string const firstName,

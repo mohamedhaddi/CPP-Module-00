@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 08:57:59 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/26 13:51:28 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/26 16:51:53 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,12 @@ class PhoneBook {
 		PhoneBook(void);
 		~PhoneBook(void);
 		void	addContact(Contact const contact);
+		Contact	getContact(int const index) const;
+		int		getNumberOfContacts(void) const;
 
 	private:
 
-		Contact _contacts[8] = {
-			Contact(NULL, NULL, NULL, NULL, NULL),
-			Contact(NULL, NULL, NULL, NULL, NULL),
-			Contact(NULL, NULL, NULL, NULL, NULL),
-			Contact(NULL, NULL, NULL, NULL, NULL),
-			Contact(NULL, NULL, NULL, NULL, NULL),
-			Contact(NULL, NULL, NULL, NULL, NULL),
-			Contact(NULL, NULL, NULL, NULL, NULL),
-			Contact(NULL, NULL, NULL, NULL, NULL)
-		};
+		Contact _contacts[8];
 		int		_oldestContactIndex;
 		int		_nextIndex;
 };

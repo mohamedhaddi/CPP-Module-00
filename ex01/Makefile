@@ -7,7 +7,7 @@ NAME=phonebook
 all: $(NAME)
 
 $(NAME): $(SRC)
-	$(CC) $(CFLAGS) -Wvexing-parse $(SRC) -o $(NAME)
+	$(CC) $(CFLAGS) $(SRC) -o $(NAME)
 
 clean:
 	rm -rf $(NAME)

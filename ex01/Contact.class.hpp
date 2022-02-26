@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 09:03:41 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/26 13:33:55 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/26 16:55:52 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ class Contact {
 
 	public:
 
+		Contact(void);
 		Contact(
 					std::string const firstName,
 					std::string const lastName,
