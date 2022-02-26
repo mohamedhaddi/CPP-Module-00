@@ -6,11 +6,12 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 18:31:11 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/24 19:07:37 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/26 09:08:15 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <string>
 #include <cctype>
 #include <cstring>
 
