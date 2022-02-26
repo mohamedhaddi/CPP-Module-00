@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 08:57:59 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/26 16:51:53 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/26 18:44:32 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ class PhoneBook {
 	private:
 
 		Contact _contacts[8];
-		int		_oldestContactIndex;
 		int		_nextIndex;
 };
 

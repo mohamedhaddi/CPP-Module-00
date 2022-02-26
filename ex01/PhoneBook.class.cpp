@@ -6,13 +6,13 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 08:59:27 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/26 17:07:45 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/26 18:39:20 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.class.hpp"
 
-PhoneBook::PhoneBook(void): _oldestContactIndex(0), _nextIndex(0) {
+PhoneBook::PhoneBook(void): _nextIndex(0) {
 	return ;
 }
 
@@ -29,6 +29,10 @@ Contact PhoneBook::getContact(int const index) const {
 		return Contact("", "", "", "", "");
 	else
 		return this->_contacts[index];
+}
+
+int		PhoneBook::getNumberOfContacts(void) const {
+	return this->_nextIndex;
 }
 
 PhoneBook::~PhoneBook(void) {

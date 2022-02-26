@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 09:03:41 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/26 16:55:52 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/26 18:27:45 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ class Contact {
 					std::string const darkestSecret
 				);
 		~Contact(void);
+		std::string getFirstName(void) const;
+		std::string getLastName(void) const;
+		std::string getNickName(void) const;
+		std::string getPhoneNumber(void) const;
+		std::string getDarkestSecret(void) const;
 
 	private:
 

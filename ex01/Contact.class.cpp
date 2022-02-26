@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 09:05:42 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/26 17:07:04 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/26 18:29:09 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,26 @@ Contact::Contact(void): _firstName(""),
 						_darkestSecret("")
 {
 	return ;
+}
+
+std::string Contact::getFirstName(void) const {
+	return this->_firstName;
+}
+
+std::string Contact::getLastName(void) const {
+	return this->_lastName;
+}
+
+std::string Contact::getNickName(void) const {
+	return this->_nickName;
+}
+
+std::string Contact::getPhoneNumber(void) const {
+	return this->_phoneNumber;
+}
+
+std::string Contact::getDarkestSecret(void) const {
+	return this->_darkestSecret;
 }
 
 Contact::Contact(

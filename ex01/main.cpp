@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 09:10:49 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/26 16:44:45 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/26 19:37:29 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,18 @@
 #include "PhoneBook.class.hpp"
 #include "Contact.class.hpp"
 
+#define RED     "\033[31m"
+#define BOLDRED "\033[1m\033[31m"
+#define GREEN   "\033[32m"
+#define CYAN    "\033[36m"
+#define MAGENTA "\033[35m"
+#define RESET   "\033[0m"
+
 bool all(std::string str, int (*is_thing)(int))
 {
-	for(unsigned long i = 0; i < str.length(); i++)
+	if (!str.length())
+		return (false);
+	for (unsigned long i = 0; i < str.length(); i++)
 		if (!is_thing(str[i]))
 			return (false);
 	return (true);
@@ -31,15 +40,19 @@ int main() {
 	bool isEvenAttempt = true;
 
 	std::cout	<< "# Welcome to your crappy awesome phonebook software!" << std::endl
-				<< "# Here are your commands:" << std::endl << "#" << std::endl
-				<< "# > ADD:" << std::setw(26) << std::right << "adds a new contact." << std::endl
-				<< "# > SEARCH:" << std::setw(25) << std::right << "search for a contact." << std::endl
-				<< "# > EXIT:" << std::setw(21) << std::right << "exit phonebook." << std::endl
-				<< "#" << std::endl;
+				<< "# Here are your commands (must be in all caps):" << std::endl << "#" << std::endl;
 
 	while (true)
 	{
-		std::cout << "# > "; std::getline(std::cin, command);
+		std::cout	<< "# > ADD:" << std::setw(26) << std::right
+					<< "adds a new contact." << std::endl
+					<< "# > SEARCH:" << std::setw(25) << std::right
+					<< "search for a contact." << std::endl
+					<< "# > EXIT:" << std::setw(21) << std::right
+					<< "exit phonebook." << std::endl
+					<< "#" << std::endl
+					<< "# " << GREEN << "> "; std::getline(std::cin, command);
+		std::cout << RESET;
 
 		if (std::cin.eof())
 			exit(1) ;
@@ -49,16 +62,21 @@ int main() {
 		{
 			if (isEvenAttempt)
 			{
-				std::cout << "# Are you autistic or something?" << std::endl;
+				std::cout	<< "# " << BOLDRED
+							<< "Are you autistic or something?"
+							<< RESET << std::endl;
 				isEvenAttempt = false;
 			}
 			else
 			{
-				std::cout << "# The f#ck is wrong with you?" << std::endl;
+				std::cout	<< "# " << BOLDRED
+							<< "# The f#ck is wrong with you?"
+							<< RESET << std::endl;
 				isEvenAttempt = true;
 			}
-			std::cout	<< "# I SAID YOUR COMMANDS ARE: ADD; SEARCH; EXIT"
-						<< std::endl << "#" << std::endl;
+			std::cout	<< "# " << RED
+						<< "I SAID YOUR COMMANDS ARE: ADD; SEARCH; EXIT"
+						<< RESET << std::endl << "#" << std::endl;
 			continue ;
 		}
 
@@ -72,16 +90,20 @@ int main() {
 
 			while (true)
 			{
-				std::cout << "# First name: "; std::getline(std::cin, firstName);
+				std::cout	<< "# " << GREEN << "First name: " << RESET;
+				std::getline(std::cin, firstName);
 
 				if (std::cin.eof())
 					exit(1) ;
 				
-				std::cout << "#" << std::endl;
 				if (!all(firstName, isalpha))
 				{
-					std::cout	<< "# The first name can only consist of alphabetic characters."
-								<< std::endl << "#" << std::endl;
+					std::cout	<< "#" << std::endl
+								<< "# " << BOLDRED
+								<< "The first name can only consist of alphabetic characters."
+								<< RESET << std::endl
+								<< "# " << RED << "Try again!" << RESET << std::endl
+								<< "#" << std::endl;
 					continue ;
 				}
 				else
@@ -90,16 +112,20 @@ int main() {
 
 			while (true)
 			{
-				std::cout << "# Last name: "; std::getline(std::cin, lastName);
+				std::cout	<< "# " << GREEN << "Last name: " << RESET;
+				std::getline(std::cin, lastName);
 
 				if (std::cin.eof())
 					exit(1) ;
 
-				std::cout << "#" << std::endl;
 				if (!all(lastName, isalpha))
 				{
-					std::cout	<< "# The last name can only consist of alphabetic characters."
-								<< std::endl << "#" << std::endl;
+					std::cout	<< "#" << std::endl
+								<< "# " << BOLDRED
+								<< "The last name can only consist of alphabetic characters."
+								<< RESET << std::endl
+								<< "# " << RED << "Try again!" << RESET << std::endl
+								<< "#" << std::endl;
 					continue ;
 				}
 				else
@@ -108,16 +134,20 @@ int main() {
 			
 			while (true)
 			{
-				std::cout << "# Nickname: "; std::getline(std::cin, nickName);
+				std::cout	<< "# " << GREEN << "Nickname: " << RESET;
+				std::getline(std::cin, nickName);
 
 				if (std::cin.eof())
 					exit(1) ;
 
-				std::cout << "#" << std::endl;
 				if (!all(nickName, isalpha))
 				{
-					std::cout	<< "# The nickname can only consist of alphabetic characters."
-								<< std::endl << "#" << std::endl;
+					std::cout	<< "#" << std::endl
+								<< "# " << BOLDRED
+								<< "The nickname can only consist of alphabetic characters."
+								<< RESET << std::endl
+								<< "# " << RED << "Try again!" << RESET << std::endl
+								<< "#" << std::endl;
 					continue ;
 				}
 				else
@@ -126,16 +156,20 @@ int main() {
 
 			while (true)
 			{
-				std::cout << "# Phone number: "; std::getline(std::cin, phoneNumber);
+				std::cout	<< "# " << GREEN << "Phone number: " << RESET;
+				std::getline(std::cin, phoneNumber);
 
 				if (std::cin.eof())
 					exit(1) ;
 
-				std::cout << "#" << std::endl;
 				if (!all(phoneNumber, isdigit))
 				{
-					std::cout	<< "# The phone number can only consist of digits."
-								<< std::endl << "#" << std::endl;
+					std::cout	<< "#" << std::endl
+								<< "# " << BOLDRED
+								<< "The phone number can only consist of digits."
+								<< RESET << std::endl
+								<< "# " << RED << "Try again!" << RESET << std::endl
+								<< "#" << std::endl;
 					continue ;
 				}
 				else
@@ -144,7 +178,8 @@ int main() {
 
 			while (true)
 			{
-				std::cout << "# Darkest secret: "; std::getline(std::cin, darkestSecret);
+				std::cout	<< "# " << GREEN << "Darkest secret: " << RESET;
+				std::getline(std::cin, darkestSecret);
 
 				if (std::cin.eof())
 					exit(1) ;
@@ -160,13 +195,34 @@ int main() {
 		}
 		else if (command == "SEARCH")
 		{
-			std::cout << std::setw(10) << "INDEX" << std::endl;
-			std::cout << '|' << std::endl;
-			std::cout << std::setw(10) << "FIRST NAME" << std::endl;
-			std::cout << '|' << std::endl;
-			std::cout << std::setw(10) << "LAST NAME" << std::endl;
-			std::cout << '|' << std::endl;
-			std::cout << std::setw(10) << "NICKNAME" << std::endl;
+			std::cout	<< "# "
+						<< CYAN
+						<< "|" << std::setw(10) << "Index"
+						<< "|" << std::setw(10) << "First Name"
+						<< "|" << std::setw(10) << "Last Name"
+						<< "|" << std::setw(10) << "Nickname"
+						<< "|" << RESET << std::endl;
+
+			for (int i = 0; i < phoneBook.getNumberOfContacts(); i++)
+			{
+				Contact currentContact = phoneBook.getContact(i);
+				std::string currentFirstName = currentContact.getFirstName();
+				std::string currentLastName = currentContact.getLastName();
+				std::string currentNickName = currentContact.getNickName();
+
+				std::cout	<< "# "
+							<< CYAN
+							<< "|" << std::setw(10) << i
+							<< "|" << std::setw(9) << currentFirstName.substr(0, 8)
+							<< (currentFirstName.length() > 10 ? "." : "")
+							<< "|" << std::setw(9) << currentLastName.substr(0, 8)
+							<< (currentLastName.length() > 10 ? "." : "")
+							<< "|" << std::setw(9) << currentNickName.substr(0, 8)
+							<< (currentNickName.length() > 10 ? "." : "")
+							<< "|" << RESET << std::endl;
+			}
+
+			std::cout << "#" << std::endl;
 		}
 		else if (command == "EXIT")
 		{
