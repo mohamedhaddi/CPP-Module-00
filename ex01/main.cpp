@@ -6,11 +6,10 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 09:10:49 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/27 17:06:40 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/27 21:51:59 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <_ctype.h>
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -34,303 +33,305 @@ bool all(std::string str, int (*is_thing)(int))
 	return (true);
 }
 
-int main() {
-	PhoneBook phoneBook;
+void	printWelcomeMessage(void)
+{
+	std::cout	<< "# Welcome to your crappy awesome phonebook software!" << std::endl
+				<< "# Here are your commands (must be in all caps):" << std::endl;
+}
+
+void	printCommandOptions(void)
+{
+	std::cout	<< "#" << std::endl
+				<< "# > ADD:" << std::setw(26) << std::right
+				<< "adds a new contact." << std::endl
+				<< "# > SEARCH:" << std::setw(25) << std::right
+				<< "search for a contact." << std::endl
+				<< "# > EXIT:" << std::setw(21) << std::right
+				<< "exit phonebook." << std::endl
+				<< "#" << std::endl;
+}
+
+std::string	getCommand()
+{
 	std::string command;
 
-	std::cout	<< "# Welcome to your crappy awesome phonebook software!" << std::endl
-				<< "# Here are your commands (must be in all caps):" << std::endl
+	std::cout << "# " << GREEN << "> ";
+	std::getline(std::cin, command);
+	std::cout << RESET;
+	std::cout << "#" << std::endl;
+
+	if (std::cin.eof())
+		exit(1) ;
+
+	return (command);
+}
+
+std::string getInput(std::string what)
+{
+	std::string input;
+
+	std::cout	<< "# " << GREEN << what << ": " << RESET;
+	std::getline(std::cin, input);
+
+	if (std::cin.eof())
+		exit(1) ;
+
+	return (input);
+}
+
+bool isValidName(std::string whatName, std::string name)
+{
+	if (name.empty())
+	{
+		std::cout	<< "#" << std::endl
+					<< "# " << BOLDRED
+					<< "You must enter a " << whatName
+					<< RESET << std::endl
+					<< "# " << RED << "Try again!" << RESET << std::endl
+					<< "#" << std::endl;
+		return (false);
+	}
+	else if (!all(name, isalpha))
+	{
+		std::cout	<< "#" << std::endl
+					<< "# " << BOLDRED
+					<< "The " << whatName << "can only consist of alphabetic characters."
+					<< RESET << std::endl
+					<< "# " << RED << "Try again!" << RESET << std::endl
+					<< "#" << std::endl;
+		return (false);
+	}
+	return (true);
+}
+
+bool isValidNumber(std::string whatNumber, std::string number)
+{
+	if (number.empty())
+	{
+		std::cout	<< "#" << std::endl
+					<< "# " << BOLDRED
+					<< "You must enter a " << whatNumber
+					<< RESET << std::endl
+					<< "# " << RED << "Try again!" << RESET << std::endl
+					<< "#" << std::endl;
+		return (false);
+	}
+	else if (!all(number, isdigit))
+	{
+		std::cout	<< "#" << std::endl
+					<< "# " << BOLDRED
+					<< "The " << whatNumber << "can only consist of digits."
+					<< RESET << std::endl
+					<< "# " << RED << "Try again!" << RESET << std::endl
+					<< "#" << std::endl;
+		return (false);
+	}
+	return (true);
+}
+
+bool isValidInput(std::string input)
+{
+	if (input.empty())
+	{
+		std::cout	<< "#" << std::endl
+					<< "# " << BOLDRED
+					<< "This field cannot be empty."
+					<< RESET << std::endl
+					<< "# " << RED << "Try again!" << RESET << std::endl
+					<< "#" << std::endl;
+		return (false);
+	}
+	return (true);
+}
+
+Contact const createContact()
+{
+	std::string firstName;
+	while (true)
+	{
+		firstName = getInput("First name");
+		if (isValidName("first name", firstName))
+			break ;
+	}
+
+	std::string lastName;
+	while (true)
+	{
+		lastName = getInput("Last name");
+		if (isValidName("first name", lastName))
+			break ;
+	}
+
+	std::string nickName;
+	while (true)
+	{
+		nickName = getInput("Nickname");
+		if (isValidName("nickname", nickName))
+			break ;
+	}
+
+	std::string phoneNumber;
+	while (true)
+	{
+		phoneNumber = getInput("Phone number");
+		if (isValidNumber("phone number", phoneNumber))
+			break ;
+	}
+
+	std::string darkestSecret;
+	while (true)
+	{
+		darkestSecret = getInput("Darkest secret");
+		if (isValidInput(darkestSecret))
+			break ;
+	}
+
+	Contact const contact(firstName, lastName, nickName, phoneNumber, darkestSecret);
+
+	return (contact);
+}
+
+bool isValidCommand(std::string command)
+{
+	if (command == "ADD")
+		return (true);
+	else if (command == "SEARCH")
+		return (true);
+	else if (command == "EXIT")
+		return (true);
+	else
+	{
+		std::cout	<< "# " << BOLDRED << "You must enter one of the valid commands:"
+					<< RESET << std::endl << "# " << RED
+					<< "ADD, SEARCH, EXIT (make sure to use all caps)."
+					<< RESET << std::endl;
+		return (false);
+	}
+}
+
+void	printContactRow(int index, Contact const & contact)
+{
+	std::string firstName = contact.getFirstName();
+	std::string lastName = contact.getLastName();
+	std::string nickName = contact.getNickName();
+
+	std::cout	<< "# "
+				<< CYAN
+				<< "|" << std::setw(10) << index << "|";
+
+	if (firstName.length() > 10)
+		std::cout << std::setw(9) << firstName.substr(0, 9) << ".|";
+	else
+		std::cout << std::setw(10) << firstName << "|";
+
+	if (lastName.length() > 10)
+		std::cout << std::setw(9) << lastName.substr(0, 9) << ".|";
+	else
+		std::cout << std::setw(10) << lastName << "|";
+
+	if (nickName.length() > 10)
+		std::cout << std::setw(9) << nickName.substr(0, 9) << ".|";
+	else
+		std::cout << std::setw(10) << nickName << "|";
+
+	std::cout << RESET << std::endl;
+}
+
+void	printAllContacts(PhoneBook const & phoneBook)
+{
+	std::cout	<< "# "
+				<< BOLDCYAN
+				<< "|" << std::setw(10) << "Index"
+				<< "|" << std::setw(10) << "First Name"
+				<< "|" << std::setw(10) << "Last Name"
+				<< "|" << std::setw(10) << "Nickname"
+				<< "|" << RESET << std::endl;
+
+	for (int i = 0; i < phoneBook.getNumberOfContacts(); i++)
+	{
+		Contact currentContact = phoneBook.getContact(i);
+		printContactRow(i, currentContact);
+	}
+
+	std::cout	<< "#" << std::endl;
+}
+
+bool contactIndexInRange(PhoneBook const & phoneBook, int const index)
+{
+	if (index < 0 || index >= phoneBook.getNumberOfContacts())
+	{
+		std::cout	<< "#" << std::endl
+					<< "# " << BOLDRED
+					<< "The index must be between 0 and "
+					<< phoneBook.getNumberOfContacts() - 1
+					<< "."
+					<< RESET << std::endl
+					<< "# " << RED << "Try again!" << RESET << std::endl
+					<< "#" << std::endl;
+		return (false);
+	}
+	return (true);
+}
+
+void	printContactFields(Contact const & contact)
+{
+	std::cout	<< "#" << std::endl
+				<< "# " << "First name: "
+				<< contact.getFirstName() << std::endl
+				<< "# " << "Last name: "
+				<< contact.getLastName() << std::endl
+				<< "# " << "Nickname: "
+				<< contact.getNickName() << std::endl
+				<< "# " << "Phone number: "
+				<< contact.getPhoneNumber() << std::endl
+				<< "# " << "Darkest secret: "
+				<< contact.getDarkestSecret() << std::endl
 				<< "#" << std::endl;
+}
+
+int inquireContactIndex(PhoneBook const & phoneBook)
+{
+	std::string index;
 
 	while (true)
 	{
-		std::cout	<< "# > ADD:" << std::setw(26) << std::right
-					<< "adds a new contact." << std::endl
-					<< "# > SEARCH:" << std::setw(25) << std::right
-					<< "search for a contact." << std::endl
-					<< "# > EXIT:" << std::setw(21) << std::right
-					<< "exit phonebook." << std::endl
-					<< "#" << std::endl
-					<< "# " << GREEN << "> "; std::getline(std::cin, command);
-		std::cout << RESET;
+		index = getInput("Choose index");
+		if (isValidNumber("index", index)
+				&& contactIndexInRange(phoneBook, std::stoi(index)))
+			break ;
+	}
 
-		if (std::cin.eof())
-			exit(1) ;
+	return (std::stoi(index));
+}
 
-		std::cout << "#" << std::endl;
-		if (command != "ADD" && command != "SEARCH" && command != "EXIT")
-		{
-			std::cout	<< "# " << BOLDRED << "You must enter one of the valid commands:"
-						<< RESET << std::endl << "# " << RED
-						<< "ADD, SEARCH, EXIT (make sure to use all caps)."
-						<< RESET << std::endl << "#" << std::endl;
+Contact const	getContact(PhoneBook const & phoneBook, int index)
+{
+	Contact contact = phoneBook.getContact(index);
+	return (contact);
+}
+
+int main()
+{
+	PhoneBook phoneBook;
+	std::string command;
+
+	printWelcomeMessage();
+
+	while (true)
+	{
+		printCommandOptions();
+		command = getCommand();
+
+		if (!isValidCommand(command))
 			continue ;
-		}
-
 		else if (command == "ADD")
-		{
-			std::string firstName;
-			std::string lastName;
-			std::string nickName;
-			std::string phoneNumber;
-			std::string darkestSecret;
-
-			while (true)
-			{
-				std::cout	<< "# " << GREEN << "First name: " << RESET;
-				std::getline(std::cin, firstName);
-
-				if (std::cin.eof())
-					exit(1) ;
-				
-				if (firstName.empty())
-				{
-					std::cout	<< "#" << std::endl
-								<< "# " << BOLDRED
-								<< "You must enter a first name."
-								<< RESET << std::endl
-								<< "# " << RED << "Try again!" << RESET << std::endl
-								<< "#" << std::endl;
-					continue ;
-				}
-				else if (!all(firstName, isalpha))
-				{
-					std::cout	<< "#" << std::endl
-								<< "# " << BOLDRED
-								<< "The first name can only consist of alphabetic characters."
-								<< RESET << std::endl
-								<< "# " << RED << "Try again!" << RESET << std::endl
-								<< "#" << std::endl;
-					continue ;
-				}
-				else
-					break ;
-			}
-
-			while (true)
-			{
-				std::cout	<< "# " << GREEN << "Last name: " << RESET;
-				std::getline(std::cin, lastName);
-
-				if (std::cin.eof())
-					exit(1) ;
-
-				if (lastName.empty())
-				{
-					std::cout	<< "#" << std::endl
-								<< "# " << BOLDRED
-								<< "You must enter a last name."
-								<< RESET << std::endl
-								<< "# " << RED << "Try again!" << RESET << std::endl
-								<< "#" << std::endl;
-					continue ;
-				}
-				else if (!all(lastName, isalpha))
-				{
-					std::cout	<< "#" << std::endl
-								<< "# " << BOLDRED
-								<< "The last name can only consist of alphabetic characters."
-								<< RESET << std::endl
-								<< "# " << RED << "Try again!" << RESET << std::endl
-								<< "#" << std::endl;
-					continue ;
-				}
-				else
-					break ;
-			}
-			
-			while (true)
-			{
-				std::cout	<< "# " << GREEN << "Nickname: " << RESET;
-				std::getline(std::cin, nickName);
-
-				if (std::cin.eof())
-					exit(1) ;
-
-				if (nickName.empty())
-				{
-					std::cout	<< "#" << std::endl
-								<< "# " << BOLDRED
-								<< "You must enter a nickname."
-								<< RESET << std::endl
-								<< "# " << RED << "Try again!" << RESET << std::endl
-								<< "#" << std::endl;
-					continue ;
-				}
-				else if (!all(nickName, isalpha))
-				{
-					std::cout	<< "#" << std::endl
-								<< "# " << BOLDRED
-								<< "The nickname can only consist of alphabetic characters."
-								<< RESET << std::endl
-								<< "# " << RED << "Try again!" << RESET << std::endl
-								<< "#" << std::endl;
-					continue ;
-				}
-				else
-					break ;
-			}
-
-			while (true)
-			{
-				std::cout	<< "# " << GREEN << "Phone number: " << RESET;
-				std::getline(std::cin, phoneNumber);
-
-				if (std::cin.eof())
-					exit(1) ;
-				
-				if (phoneNumber.empty())
-				{
-					std::cout	<< "#" << std::endl
-								<< "# " << BOLDRED
-								<< "You must enter a phone number."
-								<< RESET << std::endl
-								<< "# " << RED << "Try again!" << RESET << std::endl
-								<< "#" << std::endl;
-					continue ;
-				}
-				else if (!all(phoneNumber, isdigit))
-				{
-					std::cout	<< "#" << std::endl
-								<< "# " << BOLDRED
-								<< "The phone number can only consist of digits."
-								<< RESET << std::endl
-								<< "# " << RED << "Try again!" << RESET << std::endl
-								<< "#" << std::endl;
-					continue ;
-				}
-				else
-					break ;
-			}
-
-			while (true)
-			{
-				std::cout	<< "# " << GREEN << "Darkest secret: " << RESET;
-				std::getline(std::cin, darkestSecret);
-
-				if (std::cin.eof())
-					exit(1) ;
-
-				if (darkestSecret.empty())
-				{
-					std::cout	<< "#" << std::endl
-								<< "# " << BOLDRED
-								<< "This field cannot be empty."
-								<< RESET << std::endl
-								<< "# " << RED << "Try again!" << RESET << std::endl
-								<< "#" << std::endl;
-					continue ;
-				}
-
-				std::cout << "#" << std::endl;
-
-				break ;
-			}
-
-			Contact const contact(firstName, lastName, nickName, phoneNumber, darkestSecret);
-			phoneBook.addContact(contact);
-			
-		}
+			phoneBook.addContact(createContact());
 		else if (command == "SEARCH")
 		{
-			std::cout	<< "# "
-						<< BOLDCYAN
-						<< "|" << std::setw(10) << "Index"
-						<< "|" << std::setw(10) << "First Name"
-						<< "|" << std::setw(10) << "Last Name"
-						<< "|" << std::setw(10) << "Nickname"
-						<< "|" << RESET << std::endl;
-
-			for (int i = 0; i < phoneBook.getNumberOfContacts(); i++)
-			{
-				Contact currentContact = phoneBook.getContact(i);
-				std::string currentFirstName = currentContact.getFirstName();
-				std::string currentLastName = currentContact.getLastName();
-				std::string currentNickName = currentContact.getNickName();
-
-				std::cout	<< "# "
-							<< CYAN
-							<< "|" << std::setw(10) << i << "|";
-
-				if (currentFirstName.length() > 10)
-					std::cout << std::setw(9) << currentFirstName.substr(0, 9) << ".|";
-				else
-					std::cout << std::setw(10) << currentFirstName << "|";
-
-				if (currentLastName.length() > 10)
-					std::cout << std::setw(9) << currentLastName.substr(0, 9) << ".|";
-				else
-					std::cout << std::setw(10) << currentLastName << "|";
-
-				if (currentNickName.length() > 10)
-					std::cout << std::setw(9) << currentNickName.substr(0, 9) << ".|";
-				else
-					std::cout << std::setw(10) << currentNickName << "|";
-
-				std::cout << RESET << std::endl;
-			}
-
-			std::cout	<< "#" << std::endl;
-
-			std::string contactIndex;
-
-			while (true)
-			{
-
-				std::cout	<< "# " << GREEN << "Choose index: " << RESET;
-				std::getline(std::cin, contactIndex);
-
-				if (std::cin.eof())
-					exit(1) ;
-
-				if (contactIndex.empty())
-				{
-					std::cout	<< "#" << std::endl
-								<< "# " << BOLDRED
-								<< "This field cannot be empty."
-								<< RESET << std::endl
-								<< "# " << RED << "Try again!" << RESET << std::endl
-								<< "#" << std::endl;
-					continue ;
-				}
-				else if (!all(contactIndex, isdigit))
-				{
-					std::cout	<< "#" << std::endl
-								<< "# " << BOLDRED
-								<< "The index can only consist of digits."
-								<< RESET << std::endl
-								<< "# " << RED << "Try again!" << RESET << std::endl
-								<< "#" << std::endl;
-					continue ;
-				}
-				else if (std::stoi(contactIndex) >= phoneBook.getNumberOfContacts())
-				{
-					std::cout	<< "#" << std::endl
-								<< "# " << BOLDRED
-								<< "There is no contact with this index."
-								<< RESET << std::endl
-								<< "# " << RED << "Try again!" << RESET << std::endl
-								<< "#" << std::endl;
-					continue ;
-				}
-				else
-					break ;
-			}
-
-			Contact currentContact = phoneBook.getContact(std::stoi(contactIndex));
-
-			std::cout	<< "#" << std::endl
-						<< "# " << "First name: "
-						<< currentContact.getFirstName() << std::endl
-						<< "# " << "Last name: "
-						<< currentContact.getLastName() << std::endl
-						<< "# " << "Nickname: "
-						<< currentContact.getNickName() << std::endl
-						<< "# " << "Phone number: "
-						<< currentContact.getPhoneNumber() << std::endl
-						<< "# " << "Darkest secret: "
-						<< currentContact.getDarkestSecret() << std::endl
-						<< "#" << std::endl;
+			printAllContacts(phoneBook);
+			int const index = inquireContactIndex(phoneBook);
+			Contact const contact = getContact(phoneBook, index);
+			printContactFields(contact);
 		}
 		else if (command == "EXIT")
 		{
