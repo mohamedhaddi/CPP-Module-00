@@ -21,6 +21,22 @@ Contact::Contact(void): _firstName(""),
 	return ;
 }
 
+Contact::Contact(
+					std::string const firstName,
+					std::string const lastName,
+					std::string const nickName,
+					std::string const phoneNumber,
+					std::string const darkestSecret
+				):
+					_firstName(firstName),
+					_lastName(lastName),
+					_nickName(nickName),
+					_phoneNumber(phoneNumber),
+					_darkestSecret(darkestSecret)
+{
+	return ;
+}
+
 std::string Contact::getFirstName(void) const {
 	return this->_firstName;
 }
@@ -39,22 +55,6 @@ std::string Contact::getPhoneNumber(void) const {
 
 std::string Contact::getDarkestSecret(void) const {
 	return this->_darkestSecret;
-}
-
-Contact::Contact(
-					std::string const firstName,
-					std::string const lastName,
-					std::string const nickName,
-					std::string const phoneNumber,
-					std::string const darkestSecret
-				):
-					_firstName(firstName),
-					_lastName(lastName),
-					_nickName(nickName),
-					_phoneNumber(phoneNumber),
-					_darkestSecret(darkestSecret)
-{
-	return ;
 }
 
 Contact::~Contact(void) {
