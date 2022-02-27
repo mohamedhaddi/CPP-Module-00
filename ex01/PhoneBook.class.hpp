@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 08:57:59 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/27 17:02:54 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/27 23:56:11 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 #include "Contact.class.hpp"
 
-class PhoneBook {
+class PhoneBook
+{
 
 	public:
 
@@ -32,6 +33,7 @@ class PhoneBook {
 		Contact _contacts[MAX_CONTACTS];
 		int		_nextIndex;
 		int		_numberOfContacts;
+
 };
 
 #endif

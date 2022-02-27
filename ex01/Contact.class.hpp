@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 09:03:41 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/26 18:27:45 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/27 23:56:00 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 #include <string>
 
-class Contact {
+class Contact
+{
 
 	public:
 

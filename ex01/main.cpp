@@ -33,13 +33,13 @@ bool all(std::string str, int (*is_thing)(int))
 	return (true);
 }
 
-void	printWelcomeMessage(void)
+void printWelcomeMessage(void)
 {
 	std::cout	<< "# Welcome to your crappy awesome phonebook software!" << std::endl
 				<< "# Here are your commands (must be in all caps):" << std::endl;
 }
 
-void	printCommandOptions(void)
+void printCommandOptions(void)
 {
 	std::cout	<< "#" << std::endl
 				<< "# > ADD:" << std::setw(26) << std::right
@@ -209,7 +209,7 @@ bool isValidCommand(std::string command)
 	}
 }
 
-void	printContactRow(int index, Contact const & contact)
+void printContactRow(int index, Contact const & contact)
 {
 	std::string firstName = contact.getFirstName();
 	std::string lastName = contact.getLastName();
@@ -237,7 +237,7 @@ void	printContactRow(int index, Contact const & contact)
 	std::cout << RESET << std::endl;
 }
 
-void	printAllContacts(PhoneBook const & phoneBook)
+void printAllContacts(PhoneBook const & phoneBook)
 {
 	std::cout	<< "# "
 				<< BOLDCYAN
@@ -253,7 +253,7 @@ void	printAllContacts(PhoneBook const & phoneBook)
 		printContactRow(i, currentContact);
 	}
 
-	std::cout	<< "#" << std::endl;
+	std::cout << "#" << std::endl;
 }
 
 bool contactIndexInRange(PhoneBook const & phoneBook, int const index)
@@ -273,7 +273,7 @@ bool contactIndexInRange(PhoneBook const & phoneBook, int const index)
 	return (true);
 }
 
-void	printContactFields(Contact const & contact)
+void printContactFields(Contact const & contact)
 {
 	std::cout	<< "#" << std::endl
 				<< "# " << BOLDCYAN << "First name: " << RESET
@@ -305,7 +305,7 @@ int inquireContactIndex(PhoneBook const & phoneBook)
 	return (std::stoi(index));
 }
 
-Contact const	getContact(PhoneBook const & phoneBook, int index)
+Contact const getContact(PhoneBook const & phoneBook, int index)
 {
 	Contact contact = phoneBook.getContact(index);
 	return (contact);
