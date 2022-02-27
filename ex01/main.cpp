@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 09:10:49 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/27 21:51:59 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/27 21:55:40 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,10 +328,17 @@ int main()
 			phoneBook.addContact(createContact());
 		else if (command == "SEARCH")
 		{
-			printAllContacts(phoneBook);
-			int const index = inquireContactIndex(phoneBook);
-			Contact const contact = getContact(phoneBook, index);
-			printContactFields(contact);
+			if (phoneBook.getNumberOfContacts() > 0)
+			{
+				printAllContacts(phoneBook);
+				int const index = inquireContactIndex(phoneBook);
+				Contact const contact = getContact(phoneBook, index);
+				printContactFields(contact);
+			}
+			else
+				std::cout	<< "# " << BOLDCYAN
+							<< "There are no contacts in the phonebook."
+							<< RESET << std::endl;
 		}
 		else if (command == "EXIT")
 		{
