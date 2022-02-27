@@ -6,12 +6,13 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 08:57:59 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/26 18:44:32 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/27 16:43:58 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHONEBOOK_CLASS_H
 # define PHONEBOOK_CLASS_H
+# define MAX_CONTACTS 8
 
 #include "Contact.class.hpp"
 
@@ -27,8 +28,9 @@ class PhoneBook {
 
 	private:
 
-		Contact _contacts[8];
+		Contact _contacts[MAX_CONTACTS];
 		int		_nextIndex;
+		int		_numberOfContacts;
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 09:10:49 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/26 19:37:29 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/27 16:57:06 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@
 #define BOLDRED "\033[1m\033[31m"
 #define GREEN   "\033[32m"
 #define CYAN    "\033[36m"
+#define BOLDCYAN "\033[1m\033[36m"
 #define MAGENTA "\033[35m"
 #define RESET   "\033[0m"
 
 bool all(std::string str, int (*is_thing)(int))
 {
-	if (!str.length())
-		return (false);
 	for (unsigned long i = 0; i < str.length(); i++)
 		if (!is_thing(str[i]))
 			return (false);
@@ -37,7 +36,6 @@ bool all(std::string str, int (*is_thing)(int))
 int main() {
 	PhoneBook phoneBook;
 	std::string command;
-	bool isEvenAttempt = true;
 
 	std::cout	<< "# Welcome to your crappy awesome phonebook software!" << std::endl
 				<< "# Here are your commands (must be in all caps):" << std::endl << "#" << std::endl;
@@ -60,22 +58,9 @@ int main() {
 		std::cout << "#" << std::endl;
 		if (command != "ADD" && command != "SEARCH" && command != "EXIT")
 		{
-			if (isEvenAttempt)
-			{
-				std::cout	<< "# " << BOLDRED
-							<< "Are you autistic or something?"
-							<< RESET << std::endl;
-				isEvenAttempt = false;
-			}
-			else
-			{
-				std::cout	<< "# " << BOLDRED
-							<< "# The f#ck is wrong with you?"
-							<< RESET << std::endl;
-				isEvenAttempt = true;
-			}
-			std::cout	<< "# " << RED
-						<< "I SAID YOUR COMMANDS ARE: ADD; SEARCH; EXIT"
+			std::cout	<< "# " << BOLDRED << "You must enter one of the valid commands:"
+						<< RESET << std::endl << "# " << RED
+						<< "ADD, SEARCH, EXIT (make sure to use all caps)."
 						<< RESET << std::endl << "#" << std::endl;
 			continue ;
 		}
@@ -96,7 +81,17 @@ int main() {
 				if (std::cin.eof())
 					exit(1) ;
 				
-				if (!all(firstName, isalpha))
+				if (firstName.empty())
+				{
+					std::cout	<< "#" << std::endl
+								<< "# " << BOLDRED
+								<< "You must enter a first name."
+								<< RESET << std::endl
+								<< "# " << RED << "Try again!" << RESET << std::endl
+								<< "#" << std::endl;
+					continue ;
+				}
+				else if (!all(firstName, isalpha))
 				{
 					std::cout	<< "#" << std::endl
 								<< "# " << BOLDRED
@@ -118,7 +113,17 @@ int main() {
 				if (std::cin.eof())
 					exit(1) ;
 
-				if (!all(lastName, isalpha))
+				if (lastName.empty())
+				{
+					std::cout	<< "#" << std::endl
+								<< "# " << BOLDRED
+								<< "You must enter a last name."
+								<< RESET << std::endl
+								<< "# " << RED << "Try again!" << RESET << std::endl
+								<< "#" << std::endl;
+					continue ;
+				}
+				else if (!all(lastName, isalpha))
 				{
 					std::cout	<< "#" << std::endl
 								<< "# " << BOLDRED
@@ -140,7 +145,17 @@ int main() {
 				if (std::cin.eof())
 					exit(1) ;
 
-				if (!all(nickName, isalpha))
+				if (nickName.empty())
+				{
+					std::cout	<< "#" << std::endl
+								<< "# " << BOLDRED
+								<< "You must enter a nickname."
+								<< RESET << std::endl
+								<< "# " << RED << "Try again!" << RESET << std::endl
+								<< "#" << std::endl;
+					continue ;
+				}
+				else if (!all(nickName, isalpha))
 				{
 					std::cout	<< "#" << std::endl
 								<< "# " << BOLDRED
@@ -161,8 +176,18 @@ int main() {
 
 				if (std::cin.eof())
 					exit(1) ;
-
-				if (!all(phoneNumber, isdigit))
+				
+				if (phoneNumber.empty())
+				{
+					std::cout	<< "#" << std::endl
+								<< "# " << BOLDRED
+								<< "You must enter a phone number."
+								<< RESET << std::endl
+								<< "# " << RED << "Try again!" << RESET << std::endl
+								<< "#" << std::endl;
+					continue ;
+				}
+				else if (!all(phoneNumber, isdigit))
 				{
 					std::cout	<< "#" << std::endl
 								<< "# " << BOLDRED
@@ -183,6 +208,17 @@ int main() {
 
 				if (std::cin.eof())
 					exit(1) ;
+
+				if (darkestSecret.empty())
+				{
+					std::cout	<< "#" << std::endl
+								<< "# " << BOLDRED
+								<< "This field cannot be empty."
+								<< RESET << std::endl
+								<< "# " << RED << "Try again!" << RESET << std::endl
+								<< "#" << std::endl;
+					continue ;
+				}
 
 				std::cout << "#" << std::endl;
 
@@ -212,17 +248,87 @@ int main() {
 
 				std::cout	<< "# "
 							<< CYAN
-							<< "|" << std::setw(10) << i
-							<< "|" << std::setw(9) << currentFirstName.substr(0, 8)
-							<< (currentFirstName.length() > 10 ? "." : "")
-							<< "|" << std::setw(9) << currentLastName.substr(0, 8)
-							<< (currentLastName.length() > 10 ? "." : "")
-							<< "|" << std::setw(9) << currentNickName.substr(0, 8)
-							<< (currentNickName.length() > 10 ? "." : "")
-							<< "|" << RESET << std::endl;
+							<< "|" << std::setw(10) << i << "|";
+
+				if (currentFirstName.length() > 10)
+					std::cout << std::setw(9) << currentFirstName.substr(0, 9) << ".|";
+				else
+					std::cout << std::setw(10) << currentFirstName << "|";
+
+				if (currentLastName.length() > 10)
+					std::cout << std::setw(9) << currentLastName.substr(0, 9) << ".|";
+				else
+					std::cout << std::setw(10) << currentLastName << "|";
+
+				if (currentNickName.length() > 10)
+					std::cout << std::setw(9) << currentNickName.substr(0, 9) << ".|";
+				else
+					std::cout << std::setw(10) << currentNickName << "|";
+
+				std::cout << RESET << std::endl;
 			}
 
-			std::cout << "#" << std::endl;
+			std::cout	<< "#" << std::endl;
+
+			std::string contactIndex;
+
+			while (true)
+			{
+
+				std::cout	<< "# " << GREEN << "Choose index: " << RESET;
+				std::getline(std::cin, contactIndex);
+
+				if (std::cin.eof())
+					exit(1) ;
+
+				if (contactIndex.empty())
+				{
+					std::cout	<< "#" << std::endl
+								<< "# " << BOLDRED
+								<< "This field cannot be empty."
+								<< RESET << std::endl
+								<< "# " << RED << "Try again!" << RESET << std::endl
+								<< "#" << std::endl;
+					continue ;
+				}
+				else if (!all(contactIndex, isdigit))
+				{
+					std::cout	<< "#" << std::endl
+								<< "# " << BOLDRED
+								<< "The index can only consist of digits."
+								<< RESET << std::endl
+								<< "# " << RED << "Try again!" << RESET << std::endl
+								<< "#" << std::endl;
+					continue ;
+				}
+				else if (std::stoi(contactIndex) >= phoneBook.getNumberOfContacts())
+				{
+					std::cout	<< "#" << std::endl
+								<< "# " << BOLDRED
+								<< "There is no contact with this index."
+								<< RESET << std::endl
+								<< "# " << RED << "Try again!" << RESET << std::endl
+								<< "#" << std::endl;
+					continue ;
+				}
+				else
+					break ;
+			}
+
+			Contact currentContact = phoneBook.getContact(std::stoi(contactIndex));
+
+			std::cout	<< "#" << std::endl
+						<< "# " << "First name: "
+						<< currentContact.getFirstName() << std::endl
+						<< "# " << "Last name: "
+						<< currentContact.getLastName() << std::endl
+						<< "# " << "Nickname: "
+						<< currentContact.getNickName() << std::endl
+						<< "# " << "Phone number: "
+						<< currentContact.getPhoneNumber() << std::endl
+						<< "# " << "Darkest secret: "
+						<< currentContact.getDarkestSecret() << std::endl
+						<< "#" << std::endl;
 		}
 		else if (command == "EXIT")
 		{
