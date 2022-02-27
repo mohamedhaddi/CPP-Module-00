@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 09:10:49 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/27 21:55:40 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/27 22:39:42 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ bool isValidName(std::string whatName, std::string name)
 	{
 		std::cout	<< "#" << std::endl
 					<< "# " << BOLDRED
-					<< "You must enter a " << whatName
+					<< "You must enter a " << whatName << "."
 					<< RESET << std::endl
 					<< "# " << RED << "Try again!" << RESET << std::endl
 					<< "#" << std::endl;
@@ -95,7 +95,7 @@ bool isValidName(std::string whatName, std::string name)
 	{
 		std::cout	<< "#" << std::endl
 					<< "# " << BOLDRED
-					<< "The " << whatName << "can only consist of alphabetic characters."
+					<< "The " << whatName << " can only contain alphabetic characters."
 					<< RESET << std::endl
 					<< "# " << RED << "Try again!" << RESET << std::endl
 					<< "#" << std::endl;
@@ -110,7 +110,7 @@ bool isValidNumber(std::string whatNumber, std::string number)
 	{
 		std::cout	<< "#" << std::endl
 					<< "# " << BOLDRED
-					<< "You must enter a " << whatNumber
+					<< "You must enter a " << whatNumber << "."
 					<< RESET << std::endl
 					<< "# " << RED << "Try again!" << RESET << std::endl
 					<< "#" << std::endl;
@@ -120,7 +120,7 @@ bool isValidNumber(std::string whatNumber, std::string number)
 	{
 		std::cout	<< "#" << std::endl
 					<< "# " << BOLDRED
-					<< "The " << whatNumber << "can only consist of digits."
+					<< "The " << whatNumber << " can only contain digits."
 					<< RESET << std::endl
 					<< "# " << RED << "Try again!" << RESET << std::endl
 					<< "#" << std::endl;
@@ -129,7 +129,7 @@ bool isValidNumber(std::string whatNumber, std::string number)
 	return (true);
 }
 
-bool isValidInput(std::string input)
+bool isEmpty(std::string input)
 {
 	if (input.empty())
 	{
@@ -139,9 +139,9 @@ bool isValidInput(std::string input)
 					<< RESET << std::endl
 					<< "# " << RED << "Try again!" << RESET << std::endl
 					<< "#" << std::endl;
-		return (false);
+		return (true);
 	}
-	return (true);
+	return (false);
 }
 
 Contact const createContact()
@@ -182,7 +182,7 @@ Contact const createContact()
 	while (true)
 	{
 		darkestSecret = getInput("Darkest secret");
-		if (isValidInput(darkestSecret))
+		if (!isEmpty(darkestSecret))
 			break ;
 	}
 
@@ -276,17 +276,16 @@ bool contactIndexInRange(PhoneBook const & phoneBook, int const index)
 void	printContactFields(Contact const & contact)
 {
 	std::cout	<< "#" << std::endl
-				<< "# " << "First name: "
+				<< "# " << BOLDCYAN << "First name: " << RESET
 				<< contact.getFirstName() << std::endl
-				<< "# " << "Last name: "
+				<< "# " << BOLDCYAN << "Last name: " << RESET
 				<< contact.getLastName() << std::endl
-				<< "# " << "Nickname: "
+				<< "# " << BOLDCYAN << "Nickname: " << RESET
 				<< contact.getNickName() << std::endl
-				<< "# " << "Phone number: "
+				<< "# " << BOLDCYAN << "Phone number: " << RESET
 				<< contact.getPhoneNumber() << std::endl
-				<< "# " << "Darkest secret: "
-				<< contact.getDarkestSecret() << std::endl
-				<< "#" << std::endl;
+				<< "# " << CYAN << "Darkest secret: " << RESET
+				<< contact.getDarkestSecret() << std::endl;
 }
 
 int inquireContactIndex(PhoneBook const & phoneBook)
@@ -295,8 +294,10 @@ int inquireContactIndex(PhoneBook const & phoneBook)
 
 	while (true)
 	{
-		index = getInput("Choose index");
-		if (isValidNumber("index", index)
+		index = getInput("Choose index [0-"
+				+ std::to_string(phoneBook.getNumberOfContacts() - 1) + "]");
+		if (!isEmpty(index)
+				&& isValidNumber("index", index)
 				&& contactIndexInRange(phoneBook, std::stoi(index)))
 			break ;
 	}
