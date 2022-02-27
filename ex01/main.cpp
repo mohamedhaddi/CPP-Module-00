@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 09:10:49 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/27 16:57:06 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/27 17:06:40 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #define RED     "\033[31m"
 #define BOLDRED "\033[1m\033[31m"
 #define GREEN   "\033[32m"
+#define BOLDGREEN "\033[1m\033[32m"
 #define CYAN    "\033[36m"
 #define BOLDCYAN "\033[1m\033[36m"
 #define MAGENTA "\033[35m"
@@ -38,7 +39,8 @@ int main() {
 	std::string command;
 
 	std::cout	<< "# Welcome to your crappy awesome phonebook software!" << std::endl
-				<< "# Here are your commands (must be in all caps):" << std::endl << "#" << std::endl;
+				<< "# Here are your commands (must be in all caps):" << std::endl
+				<< "#" << std::endl;
 
 	while (true)
 	{
@@ -232,7 +234,7 @@ int main() {
 		else if (command == "SEARCH")
 		{
 			std::cout	<< "# "
-						<< CYAN
+						<< BOLDCYAN
 						<< "|" << std::setw(10) << "Index"
 						<< "|" << std::setw(10) << "First Name"
 						<< "|" << std::setw(10) << "Last Name"
@@ -332,6 +334,10 @@ int main() {
 		}
 		else if (command == "EXIT")
 		{
+			std::cout	<< "# 👋" << std::endl
+						<< "# " << BOLDGREEN << "Goodbye!" << RESET << std::endl
+						<< "#" << std::endl;
+			break ;
 		}
 	}
 }
