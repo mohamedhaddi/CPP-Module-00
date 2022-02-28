@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 09:10:49 by mhaddi            #+#    #+#             */
-/*   Updated: 2022/02/27 22:39:42 by mhaddi           ###   ########.fr       */
+/*   Updated: 2022/02/28 12:14:42 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,12 +305,6 @@ int inquireContactIndex(PhoneBook const & phoneBook)
 	return (std::stoi(index));
 }
 
-Contact const getContact(PhoneBook const & phoneBook, int index)
-{
-	Contact contact = phoneBook.getContact(index);
-	return (contact);
-}
-
 int main()
 {
 	PhoneBook phoneBook;
@@ -333,7 +327,7 @@ int main()
 			{
 				printAllContacts(phoneBook);
 				int const index = inquireContactIndex(phoneBook);
-				Contact const contact = getContact(phoneBook, index);
+				Contact const contact = phoneBook.getContact(index);
 				printContactFields(contact);
 			}
 			else
